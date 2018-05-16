@@ -1,0 +1,22 @@
+{
+  "presets": [
+    "@babel/preset-react",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": 52
+        },
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-pipeline-operator"
+  ]
+}
+
