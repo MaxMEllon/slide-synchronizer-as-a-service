@@ -3,7 +3,7 @@ const path = require('path')
 const serve = require('webpack-serve')
 const history = require('connect-history-api-fallback')
 const convert = require('koa-connect')
-const config = require('../src/webpack/webpack.config.dev')
+const config = require('../src/webpack/webpack.config.client.dev')
 
 config.serve = {
   content: [process.cwd()],
