@@ -8,7 +8,7 @@ class API::V1::Users < Grape::API
         user.save!
         user.ensure_authentication_token
         user
-      rescue
+      rescue StandardError
         false
       end
     end
@@ -46,7 +46,7 @@ class API::V1::Users < Grape::API
       requires :token, type: String
     end
     delete '/sign_out' do
-      token = JWT.decode jwt, ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
+      token = JWT.decode jwt, ENV['JWT_SECRET'], true, algorithm: 'HS256'
       user = User.find_by(authentication_token: token)
       user.delete_authentication_token
       { message: 'success', status: 200 }
