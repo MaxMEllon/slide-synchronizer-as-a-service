@@ -8,7 +8,7 @@ module API
 
       helpers do
         def render_400
-          { status: 400, messages: 'Bad Request' }
+          error!({ messages: 'Bad Request' }, 400)
         end
       end
 
