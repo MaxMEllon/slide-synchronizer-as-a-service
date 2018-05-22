@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: `${process.cwd()}/dist/`,
-    filename: 'bundle.[hash].js',
+    filename: 'client.js',
     libraryTarget: 'umd'
   },
   module: {
@@ -48,7 +48,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     alias: {
-      '~': path.resolve(process.cwd(), 'src', 'client')
+      '~': path.resolve(process.cwd(), 'src')
     }
   }
 }

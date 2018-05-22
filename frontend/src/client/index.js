@@ -1,7 +1,6 @@
 import React from 'react'
-import { render } from 'react-dom'
-import App from '~/containers/App'
+import { hydrate } from 'react-dom'
+import App from '~/shared/containers/App'
 
-const initalRender = () => render(<App />, document.body)
+hydrate(<App />, document.getElementById('root'))
 
-document.addEventListener('DOMContentLoaded', initalRender)

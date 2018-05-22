@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "server",
+      "script": "dist/server.js",
+      "instances": "1",
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "watch": [
+        "dist/server.js"
+      ],
+      "ignore_watch": [
+        "node_modules"
+      ]
+    }
+  ]
+}
+

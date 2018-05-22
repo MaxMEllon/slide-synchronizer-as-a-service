@@ -37,7 +37,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     alias: {
-      '~': path.resolve(process.cwd(), 'src', 'server')
+      '~': path.resolve(process.cwd(), 'src')
     }
   }
 }
