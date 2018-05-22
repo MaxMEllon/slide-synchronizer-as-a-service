@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   mount API::ApplicationAPI, at: '/'
+  mount GrapeSwaggerRails::Engine => '/swagger' if Rails.env == 'development'
 end
