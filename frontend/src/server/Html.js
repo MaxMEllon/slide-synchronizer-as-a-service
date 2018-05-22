@@ -1,8 +1,10 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { ServerStyleSheet } from 'styled-components'
 import App from '~/shared/containers/App'
 
 const renderedContent = renderToString(<App />)
+const styleTags = new ServerStyleSheet().getStyleTags()
 
 export default function renderFullPage() {
   return `
@@ -19,6 +21,7 @@ export default function renderFullPage() {
         <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>" />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://example.com" />
+        ${styleTags}
       </head>
       <body>
         <div id="root">${renderedContent}</div>

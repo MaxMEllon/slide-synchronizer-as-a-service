@@ -1,6 +1,23 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
+import styled, { injectGlobal } from 'styled-components'
+import reset from 'styled-reset'
 
-const App = () => <div>Hello World!!!</div>
+const style = () => injectGlobal`
+  ${reset}
+`
 
-export default App |> hot(module)
+const Nav = styled.header`
+  height: 10%;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+`
+
+const App = () => {
+  style()
+  return (
+    <Nav />
+  )
+}
+
+export default App
