@@ -26,4 +26,12 @@
 
 # lint
 
-    cd api && bundle exec rubocop && cd ../frontend && npm run lint
+    saku -p lint:frontend lint:api
+
+# lint:frontend
+
+    cd api && bundle exec rubocop -p
+
+# lint:api
+
+   cd ../frontend && npm run lint
