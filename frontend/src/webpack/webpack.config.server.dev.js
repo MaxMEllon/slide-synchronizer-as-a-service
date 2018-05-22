@@ -22,7 +22,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'babel-loader'
           }
         ]
       }
@@ -32,7 +32,7 @@ module.exports = {
     new Dotenv({ path: `${process.cwd()}/.env` }),
     new webpack.NamedModulesPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
     extensions: ['.js'],

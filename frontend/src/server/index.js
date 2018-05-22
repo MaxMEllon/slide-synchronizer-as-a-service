@@ -7,6 +7,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(7000, () => {
-  console.log('listening *:7000');
-});
-
+  console.log('listening *:7000')
+})
