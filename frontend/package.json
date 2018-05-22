@@ -6,8 +6,7 @@
   "scripts": {
     "start": "run-p start:client start:server --print-label",
     "start:client": "node ./bin/client-server.js",
-    "fmt": "prettier --write src/**/*.js",
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint src/client src/server src/shared src/webpack",
     "start:server": "DEBUG=express:*,app:* run-p watch:server lunch:server",
     "lunch:server": "pm2 start server.json --env development --watch --no-daemon -f",
     "watch:server": "webpack --progress --watch --config ./src/webpack/webpack.config.server.dev.js"
@@ -45,6 +44,7 @@
     "webpack-serve": "^0.3.2"
   },
   "dependencies": {
+    "debug": "^3.1.0",
     "express": "^4.16.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",

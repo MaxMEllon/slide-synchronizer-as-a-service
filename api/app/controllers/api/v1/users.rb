@@ -19,7 +19,7 @@ class API::V1::Users < Grape::API
     end
     post '/sign_in' do
       user = User.find_by(email: params[:email])
-      if user&.valid_password?(params[:password]) || false
+      if user&.valid_password?(params[:password])
         user.ensure_authentication_token
         user.as_json(methods: :jwt, only: [:jwt])
       else

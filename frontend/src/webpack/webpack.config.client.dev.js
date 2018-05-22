@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: `${process.cwd()}/dist/`,
     filename: 'client.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
@@ -21,17 +21,17 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader'
-          }
-        ]
-      }
-    ]
+            loader: 'babel-loader',
+          },
+        ],
+      },
+    ],
   },
   optimization: {
     splitChunks: {
       name: 'vendor',
-      chunks: 'initial'
-    }
+      chunks: 'initial',
+    },
   },
   plugins: [
     new Dotenv({ path: `${process.cwd()}/.env` }),
@@ -42,13 +42,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: name,
-      template: path.join(process.cwd(), 'templates', 'template.ejs')
-    })
+      template: path.join(process.cwd(), 'templates', 'template.ejs'),
+    }),
   ],
   resolve: {
     extensions: ['.js'],
     alias: {
-      '~': path.resolve(process.cwd(), 'src')
-    }
-  }
+      '~': path.resolve(process.cwd(), 'src'),
+    },
+  },
 }

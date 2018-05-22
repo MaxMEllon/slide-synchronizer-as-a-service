@@ -145,3 +145,8 @@ Style/Lambda:
 
 Style/AsciiComments:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/controllers/api/**/*'
+    - 'spec/**/*'
