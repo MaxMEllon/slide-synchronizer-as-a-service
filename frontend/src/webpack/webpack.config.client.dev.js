@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { readFileSync } = require('fs')
 const { name } = require('../../package.json')
 
 module.exports = {
@@ -42,6 +43,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: name,
+      bulma: readFileSync(
+        require('path').join(require.resolve('bulma'), '..', 'css', 'bulma.min.css'),
+      ),
       template: path.join(process.cwd(), 'templates', 'template.ejs'),
     }),
   ],

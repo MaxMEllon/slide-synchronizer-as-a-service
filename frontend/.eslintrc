@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "airbnb",
-    "plugin:flowtype/recommended"
-  ],
+  "extends": ["airbnb", "plugin:flowtype/recommended"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -18,13 +15,10 @@
     "es6": true,
     "jest/globals": true
   },
-  "plugins": [
-    "import",
-    "react",
-    "flowtype",
-    "lodash-fp",
-    "jest"
-  ],
+  "globals": {
+    "preval": false
+  },
+  "plugins": ["import", "react", "flowtype", "lodash-fp", "jest"],
   "rules": {
     "no-console": "warn",
     "no-unexpected-multiline": "error",
@@ -72,25 +66,25 @@
     "react/no-is-mounted": "error",
     "react/no-string-refs": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/jsx-no-bind":["error", {
-      "allowBind": true,
-      "allowArrowFunctions": true
-    }],
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "allowBind": true,
+        "allowArrowFunctions": true
+      }
+    ],
     "react/prop-types": ["off"],
     "react/no-array-index-key": "off",
     "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "off",
     "react/require-default-props": "off",
-    "react/sort-comp": ["error", {
-      "order": [
-        "type-annotations",
-        "static-methods",
-        "lifecycle",
-        "everything-else",
-        "render"
-      ]
-    }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "react/sort-comp": [
+      "error",
+      {
+        "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
+      }
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "import/prefer-default-export": "off",
     "import/no-mutable-exports": "off",
     "import/no-dynamic-require": "off",
@@ -106,10 +100,13 @@
     "react/jsx-equals-spacing": "error",
     "react/jsx-indent": ["error", 2],
     "react/jsx-key": "error",
-    "react/jsx-max-props-per-line": ["error", {"maximum": 5}],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 5 }],
     "react/jsx-no-duplicate-props": "error",
-    "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
-    "react/jsx-closing-bracket-location": ["error", {"selfClosing": "tag-aligned", "nonEmpty": "after-props"}],
+    "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always" }],
+    "react/jsx-closing-bracket-location": [
+      "error",
+      { "selfClosing": "tag-aligned", "nonEmpty": "after-props" }
+    ],
     "react/jsx-wrap-multilines": "error",
     "react/no-unused-state": "off",
     "flowtype/space-after-type-colon": ["error", "always"],
@@ -130,7 +127,7 @@
     "lodash-fp/no-unused-result": "error",
     "lodash-fp/prefer-compact": "error",
     "lodash-fp/prefer-composition-grouping": "error",
-    "lodash-fp/prefer-constant": ["error", {"arrowFunctions": false}],
+    "lodash-fp/prefer-constant": ["error", { "arrowFunctions": false }],
     "lodash-fp/prefer-flat-map": "error",
     "lodash-fp/prefer-get": "error",
     "lodash-fp/preferred-alias": "off",

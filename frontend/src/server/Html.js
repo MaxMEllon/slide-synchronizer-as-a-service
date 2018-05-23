@@ -1,12 +1,26 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
+import { Provider } from 'react-redux'
+import { StaticRouter as Router } from 'react-router'
+import createStore from '../shared/store'
 import App from '../shared/containers/App'
+import bulma from './macros/bulma.macro'
 
-const renderedContent = renderToString(<App />)
 const styleTags = new ServerStyleSheet().getStyleTags()
+const store = createStore(() => ({}))
+const state = store.getState()
 
-export default function renderFullPage() {
+const context = {}
+
+export default function renderFullPage(path) {
+  const renderedContent = renderToString(
+    <Provider store={store}>
+      <Router context={context} location={path}>
+        <App />
+      </Router>
+    </Provider>,
+  )
   return `
 <!DOCTYPE html>
 <html>
@@ -21,16 +35,32 @@ export default function renderFullPage() {
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="theme-color" content="#317EFB" />
-    <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>" />
+    <meta property="og:title" content="title" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://example.com" />
     ${styleTags}
+    <style>${bulma}</style>
   </head>
   <body>
     <div id="root">${renderedContent}</div>
-    <script type="text/javascript" src="${process.env.CLIENT_JS_LOC}/client.js"></script>
-    <script type="text/javascript" src="${process.env.CLIENT_JS_LOC}/vendor.client.js"></script>
+    <script
+      async
+      type="text/javascript"
+      src="${process.env.CLIENT_JS_LOC}/client.js"
+    ></script>
+    <script
+      async
+      type="text/javascript"
+      src="${process.env.CLIENT_JS_LOC}/vendor.client.js"
+    ></script>
+    <script>
+      window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}
+    </script>
   </body>
 </html>
   `
+    .trim()
+    .split('\n')
+    .map((l) => l.replace(/(^\s+)|(\s+$)/g, ''))
+    .join('\n')
 }

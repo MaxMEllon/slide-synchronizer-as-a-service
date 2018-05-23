@@ -12,9 +12,8 @@
   <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://example.com" />
-  <style>
-    <%= require('styled-reset').default %>
-  </style>
+  <style><%= require('styled-reset').default %></style>
+  <style><%= htmlWebpackPlugin.options.bulma %></style>
 </head>
 
 <body>

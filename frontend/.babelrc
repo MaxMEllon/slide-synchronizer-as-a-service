@@ -1,6 +1,7 @@
 {
   "presets": [
     "@babel/preset-react",
+    "@babel/preset-flow",
     [
       "@babel/preset-env",
       {
@@ -12,6 +13,7 @@
     ]
   ],
   "plugins": [
+    "preval",
     "react-hot-loader/babel",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
