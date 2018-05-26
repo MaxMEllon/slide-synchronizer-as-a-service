@@ -1,36 +1,27 @@
 // @flow
 
 import React from 'react'
-import styled, { injectGlobal } from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
+import { injectGlobal } from 'styled-components'
 import reset from 'styled-reset'
+import Nav from '../organisms/Nabvar'
 import routeBank from '../routes'
 
 const style = () => injectGlobal`
   ${reset}
 `
 
-const Nav = styled.header`
-  height: 50px;
-  width: 100%;
-  background-color: black;
-  position: absolute;
-`
-
-const Spacer = styled.div`
-  height: 50px;
-  width: 100%;
-`
-
 const routes = routeBank.routes.map((props, i) => <Route key={i} {...props} />)
 
 const App = () => {
-  style()
   return (
     <div>
       <Nav />
-      <Spacer />
-      <Switch>{routes}</Switch>
+      <section className="section">
+        <div className="container is-fluid">
+          <Switch>{routes}</Switch>
+        </div>
+      </section>
     </div>
   )
 }

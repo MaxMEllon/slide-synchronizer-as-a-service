@@ -4,8 +4,11 @@ import { matchPath } from 'react-router'
 import Html from './Html'
 import routesBank from '../shared/routes'
 
-const app = express()
 const info = Debug('app:info')
+
+const app = express()
+
+app.use(express.static(`static`))
 
 app.get('*', (req, res) => {
   try {
