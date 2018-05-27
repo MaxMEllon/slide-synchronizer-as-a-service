@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { pure } from 'recompose'
+import { compose, pure, lifecycle } from 'recompose'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import Card from '../organisms/Card'
 import CardHeader from '../molecules/CardHeader'
@@ -39,7 +39,19 @@ type Props = State & {
   changeFormData: (s: State) => void,
 }
 
-const App = pure(({ trySignUp, ...props }: Props) => (
+const App = compose(
+  pure,
+  lifecycle({
+    componentWillUnMount() {
+      this.props.changeFormData({
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+      })
+    },
+  }),
+)(({ trySignUp, ...props }: Props) => (
   <Card
     Header={<CardHeader title="ユーザー登録" />}
     Content={<SignUpCardContent {...props} />}
