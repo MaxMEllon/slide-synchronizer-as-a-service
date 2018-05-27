@@ -42,7 +42,7 @@ type Props = State & {
 const App = compose(
   pure,
   lifecycle({
-    componentWillUnMount() {
+    componentWillUnmount() {
       this.props.changeFormData({
         name: '',
         email: '',
