@@ -1,15 +1,19 @@
-import React from 'react'
+// @flow
+
+import Top from './pages/Top'
+import SignUp from './pages/SignUp'
+import Common from './templates/Common'
 
 export default {
   routes: [
     {
       path: '/',
-      component: () => <div>home</div>,
+      component: Top,
       exact: true,
     },
     {
-      path: '/users/sign_in',
-      component: () => <div>sign in</div>,
+      path: '/users/sign_up',
+      component: Common(SignUp),
       exact: true,
     },
   ],

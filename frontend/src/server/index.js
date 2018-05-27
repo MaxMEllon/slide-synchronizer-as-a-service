@@ -8,7 +8,7 @@ const info = Debug('app:info')
 
 const app = express()
 
-app.use(express.static(`static`))
+app.use(express.static('static'))
 
 app.get('*', (req, res) => {
   try {

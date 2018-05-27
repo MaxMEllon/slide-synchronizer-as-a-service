@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import reset from 'styled-reset'
@@ -13,16 +13,13 @@ const style = () => injectGlobal`
 
 const routes = routeBank.routes.map((props, i) => <Route key={i} {...props} />)
 
-const App = () => {
+const App = (): React.Node => {
+  style()
   return (
-    <div>
+    <React.Fragment>
       <Nav />
-      <section className="section">
-        <div className="container is-fluid">
-          <Switch>{routes}</Switch>
-        </div>
-      </section>
-    </div>
+      <Switch>{routes}</Switch>
+    </React.Fragment>
   )
 }
 

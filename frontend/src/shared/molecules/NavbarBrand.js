@@ -13,7 +13,7 @@ export default () => (
     <Item className="navbar-item">
       <img
         id="brand"
-        src="/assets/icon.png"
+        src={`${process.env.SERVER_LOC}/assets/icon.png`}
         alt="Bulma: a modern CSS framework based on Flexbox"
       />
     </Item>
