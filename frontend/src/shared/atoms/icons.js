@@ -1,3 +1,5 @@
+import React from 'react'
+import KeyMirror from 'keymirror'
 import styled from 'styled-components'
 
 export const Email = styled.i`
@@ -88,3 +90,27 @@ export const Key = styled.i`
     border-right: solid 1px currentColor;
   }
 `
+export const iconType = KeyMirror({
+  key: null,
+  user: null,
+  email: null,
+})
+
+export type IconType = $Keys<iconType>
+
+type Props = {
+  icon: IconType,
+}
+
+export default ({ icon }: Props) => {
+  switch (icon) {
+    case 'key':
+      return <Key />
+    case 'user':
+      return <User />
+    case 'email':
+      return <Email />
+    default:
+      return null
+  }
+}

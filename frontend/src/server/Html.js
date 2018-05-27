@@ -6,9 +6,10 @@ import { StaticRouter as Router } from 'react-router'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
 import bulma from './macros/bulma.macro'
+import reducer from '../shared/reducer'
 
 const styleTags = new ServerStyleSheet().getStyleTags()
-const store = createStore(() => ({}))
+const store = createStore(reducer)
 const state = store.getState()
 
 const context = {}

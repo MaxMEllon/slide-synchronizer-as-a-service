@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 type Props = {
-  +Content: React.Element<any>,
+  +children: React.Element<any>,
 }
 
-export default ({ Content }: Props) => <div className="card-content">{Content}</div>
+export default ({ children }: Props) => <div className="card-content">{children}</div>

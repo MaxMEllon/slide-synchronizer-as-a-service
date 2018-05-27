@@ -1,67 +1,61 @@
 // @flow
 
 import * as React from 'react'
-import styled from 'styled-components'
 import CardContent from './CardContent'
-import * as icons from '../atoms/icons'
+import FormField from '../atoms/FromField'
+import { type State } from '../pages/SignUp'
 
-const IconBox = styled.span`
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-`
+type Props = State & {
+  changeFormData: (s: State) => void,
+}
 
-export default () => (
-  <CardContent
-    Content={
+const onChangeCreator = (props: State, changeFormData: (s: State) => void) => (
+  e: any,
+  type: string,
+) => {
+  const input: string = e.target.value
+  const next = Object.assign(props, { [type]: input })
+  changeFormData({ ...next })
+}
+
+export default ({ changeFormData, ...props }: Props) => {
+  const onChange = onChangeCreator(props, changeFormData)
+  return (
+    <CardContent>
       <div className="content">
-        <div className="field">
-          <label htmlFor="name" className="label">
-            名前
-          </label>
-          <div className="control has-icons-left">
-            <input id="name" type="text" className="input" />
-            <IconBox className="icon is-small is-left">
-              <icons.User />
-            </IconBox>
-          </div>
-        </div>
-
-        <div className="field">
-          <label htmlFor="email" className="label">
-            E-mail
-          </label>
-          <div className="control has-icons-left">
-            <input id="email" type="email" className="input" />
-            <IconBox className="icon is-small is-left">
-              <icons.Email />
-            </IconBox>
-          </div>
-        </div>
-
-        <div className="field">
-          <label htmlFor="password" className="label">
-            パスワード
-          </label>
-          <p className="control has-icons-left">
-            <input id="password" type="password" className="input" />
-            <IconBox className="icon is-small is-left">
-              <icons.Key />
-            </IconBox>
-          </p>
-        </div>
-
-        <div className="field">
-          <label htmlFor="passwordConfirmation" className="label">
-            パスワード確認
-          </label>
-          <p className="control has-icons-left">
-            <input id="passwordConrirmation" type="password" className="input" />
-            <IconBox className="icon is-small is-left">
-              <icons.Key />
-            </IconBox>
-          </p>
-        </div>
+        <FormField
+          name="name"
+          icon="user"
+          type="text"
+          label="名前"
+          value={props.name}
+          onChange={(e) => onChange(e, 'name')}
+        />
+        <FormField
+          name="email"
+          icon="email"
+          type="email"
+          label="E-mail"
+          value={props.email}
+          onChange={(e) => onChange(e, 'email')}
+        />
+        <FormField
+          name="password"
+          icon="key"
+          type="password"
+          label="パスワード"
+          value={props.password}
+          onChange={(e) => onChange(e, 'password')}
+        />
+        <FormField
+          name="passwordConfirmation"
+          icon="key"
+          type="password"
+          label="パスワード(確認)"
+          value={props.passwordConfirmation}
+          onChange={(e) => onChange(e, 'passwordConfirmation')}
+        />
       </div>
-    }
-  />
-)
+    </CardContent>
+  )
+}
