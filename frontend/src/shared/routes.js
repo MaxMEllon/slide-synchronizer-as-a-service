@@ -2,7 +2,7 @@
 
 import Top from './pages/Top'
 import SignUp from './pages/SignUp'
-import Common from './templates/Common'
+import withColumnsHerfCenter from './templates/withColumHerfCenter'
 
 export default {
   routes: [
@@ -13,7 +13,7 @@ export default {
     },
     {
       path: '/users/sign_up',
-      component: Common(SignUp),
+      component: withColumnsHerfCenter(SignUp),
       exact: true,
     },
   ],
