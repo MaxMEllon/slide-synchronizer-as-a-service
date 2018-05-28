@@ -52,8 +52,12 @@ export function* saga(): Generator<*, void, *> {
   while (true) {
     yield take(trySignUp.type)
     const { draftUser } = yield select()
-    const jwt = yield call(signUp, draftUser)
-    yield put(successSignUp(jwt))
+    try {
+      const jwt = yield call(signUp, draftUser)
+      yield put(successSignUp(jwt))
+    } catch (err) {
+      yield put(failSignUp(err))
+    }
   }
 }
 
