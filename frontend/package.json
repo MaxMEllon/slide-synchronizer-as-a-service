@@ -7,8 +7,8 @@
     "start": "run-p start:client start:server --print-label",
     "start:client": "node ./bin/client-server.js",
     "lint": "eslint src/client src/server src/shared src/webpack",
-    "start:server": "DEBUG=express:*,app:* run-p watch:server lunch:server",
-    "lunch:server": "pm2 start server.json --env development --watch --no-daemon -f",
+    "start:server": "DEBUG=express:*,ssaas:* run-p watch:server lunch:server",
+    "lunch:server": "DEBUG=express:*,ssaas:* pm2 start server.json --env development --watch --no-daemon -f",
     "watch:server": "webpack --progress --watch --config ./src/webpack/webpack.config.server.dev.js"
   },
   "devDependencies": {
@@ -47,13 +47,16 @@
     "webpack-serve": "^0.3.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-preval": "^1.6.4",
+    "body-parser": "^1.18.3",
     "bulma": "^0.7.1",
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "fetchr": "^0.5.37",
     "hard-reducer": "^2.1.0",
     "keymirror": "^0.1.1",
+    "lodash": "^4.17.10",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.1.2",
@@ -64,6 +67,7 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
+    "snakecase-keys": "^1.1.1",
     "styled-components": "^3.2.6",
     "styled-reset": "^1.3.4"
   }

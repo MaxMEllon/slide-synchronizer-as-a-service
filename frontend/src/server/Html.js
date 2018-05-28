@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheet, injectGlobal } from 'styled-components'
 import { Provider } from 'react-redux'
 import { StaticRouter as Router } from 'react-router'
 import createStore from '../shared/store'
@@ -14,7 +14,10 @@ const state = store.getState()
 
 const context = {}
 
+const style = () => injectGlobal`${bulma}`
+
 export default function renderFullPage(path) {
+  style()
   const renderedContent = renderToString(
     <Provider store={store}>
       <Router context={context} location={path}>

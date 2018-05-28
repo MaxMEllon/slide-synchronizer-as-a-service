@@ -1,14 +1,18 @@
 import express from 'express'
 import Debug from 'debug'
+import bodyParser from 'body-parser'
 import { matchPath } from 'react-router'
 import Html from './Html'
 import routesBank from '../shared/routes'
+import apiGateway from './middlewares/apiGateway'
 
 const info = Debug('app:info')
 
 const app = express()
 
 app.use(express.static('static'))
+app.use(bodyParser.json())
+app.use('/ssaas/api', apiGateway())
 
 app.get('*', (req, res) => {
   try {
