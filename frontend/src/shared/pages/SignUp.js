@@ -13,6 +13,11 @@ import CardFooter from '../molecules/CardFooter'
 
 const { createAction } = buildActionCreator({ prefix: 'user/signup ' })
 
+export const trySignUp: ActionCreator<any> = createAction('try signup')
+export const successSignUp: ActionCreator<any> = createAction('success signup')
+export const failSignUp: ActionCreator<any> = createAction('fail signup')
+export const changeFormData: ActionCreator<State> = createAction('change form data')
+
 export type State = {
   email: string,
   name: string,
@@ -20,12 +25,7 @@ export type State = {
   passwordConfirmation: string,
 }
 
-export const trySignUp: ActionCreator<any> = createAction('try signup')
-export const successSignUp: ActionCreator<any> = createAction('success signup')
-export const failSignUp: ActionCreator<any> = createAction('fail signup')
-export const changeFormData: ActionCreator<State> = createAction('change form data')
-
-export const initalState = {
+export const initalState: State = {
   email: '',
   name: '',
   password: '',
@@ -35,18 +35,6 @@ export const initalState = {
 export const reducer = createReducer(initalState) // reducer
   .case(changeFormData, (state, payload) => payload)
   .else((state) => state)
-
-type Props = State & {
-  trySignUp: () => void,
-  changeFormData: (s: State) => void,
-}
-
-const mapToStateProps = (state): State => ({
-  email: state.draftUser.email,
-  name: state.draftUser.name,
-  password: state.draftUser.password,
-  passwordConfirmation: state.draftUser.passwordConfirmation,
-})
 
 export function* saga(): Generator<*, void, *> {
   while (true) {
@@ -61,6 +49,18 @@ export function* saga(): Generator<*, void, *> {
   }
 }
 
+type Props = State & {
+  trySignUp: () => void,
+  changeFormData: (s: State) => void,
+}
+
+const mapStateToProps = (state): State => ({
+  email: state.draftUser.email,
+  name: state.draftUser.name,
+  password: state.draftUser.password,
+  passwordConfirmation: state.draftUser.passwordConfirmation,
+})
+
 export default compose(
   pure,
   lifecycle({
@@ -73,7 +73,7 @@ export default compose(
       })
     },
   }),
-  connect(mapToStateProps, {
+  connect(mapStateToProps, {
     trySignUp,
     changeFormData,
   }),
