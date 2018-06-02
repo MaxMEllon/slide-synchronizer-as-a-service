@@ -8,26 +8,28 @@ import apiGateway from './middlewares/apiGateway'
 
 const info = Debug('app:info')
 
-const app = express()
+export default function renderer() {
+  const app = express.Router()
 
-app.use(express.static('static'))
-app.use(bodyParser.json())
-app.use('/ssaas/api', apiGateway())
+  app.use(express.static('static'))
+  app.use(bodyParser.json())
+  app.use('/ssaas/api', apiGateway())
 
-app.get('*', (req, res) => {
-  try {
-    const { path } = routesBank.routes.find(({ path, exact }) =>
-      matchPath(req.url, {
-        path,
-        exact,
-        strict: false,
-      }),
-    )
-    res.send(Html(path))
-  } catch (_err) {
-    info(_err)
-    res.status(404).send('Not found')
-  }
-})
+  app.get('*', (req, res) => {
+    try {
+      const { path } = routesBank.routes.find(({ path, exact }) =>
+        matchPath(req.url, {
+          path,
+          exact,
+          strict: false,
+        }),
+      )
+      res.send(Html(path))
+    } catch (_err) {
+      info(_err)
+      res.status(404).send('Not found')
+    }
+  })
 
-app.listen(7000, () => info('listening *:7000'))
+  return app
+}

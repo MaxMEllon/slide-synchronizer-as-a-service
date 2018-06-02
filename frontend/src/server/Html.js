@@ -50,12 +50,12 @@ export default function renderFullPage(path) {
     <script
       async
       type="text/javascript"
-      src="${process.env.CLIENT_LOC}/client.js"
+      src="/static/client.js"
     ></script>
     <script
       async
       type="text/javascript"
-      src="${process.env.CLIENT_LOC}/vendor.client.js"
+      src="/static/vendor.client.js"
     ></script>
     <script>
       window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}

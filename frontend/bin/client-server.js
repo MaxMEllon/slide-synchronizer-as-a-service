@@ -14,7 +14,7 @@ config.serve = {
   port: 4000,
   add: (app, middleware, options) => {
     app.use(convert(history({})))
-  }
+  },
 }
 
 serve({ config })

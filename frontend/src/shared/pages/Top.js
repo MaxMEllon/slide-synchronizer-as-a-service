@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Background = styled.div`
-  background-image: url("${process.env.SERVER_LOC}/assets/top.jpg");
+  background-image: url("/assets/top.jpg");
   left: 0;
   right: 0;
   bottom: 0;

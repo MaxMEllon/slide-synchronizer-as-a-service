@@ -4,6 +4,7 @@ const Dotenv = require('dotenv-webpack')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
+  name: 'server',
   cache: true,
   mode: 'development',
   entry: [`${process.cwd()}/src/server/index.js`],
