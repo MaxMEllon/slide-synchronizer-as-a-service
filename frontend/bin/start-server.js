@@ -50,7 +50,7 @@ function devServer(app) {
 createApp()
   .then((app) => {
     server.on('request', app)
-    const port = process.env.PORT || 3000
+    const port = process.env.PORT || 7000
     server.listen(port, () => debug(`Listening on port ${port}`))
   })
   .catch((err) => {

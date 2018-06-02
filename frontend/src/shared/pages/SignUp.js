@@ -7,6 +7,7 @@ import { take, put, call, select } from 'redux-saga/effects'
 import { compose, pure, lifecycle } from 'recompose'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import { signUp } from '../fetchr'
+import type { User } from '../reducer'
 import Card from '../organisms/Card'
 import CardHeader from '../molecules/CardHeader'
 import SignUpCardContent from '../molecules/SignUpCardContent'
@@ -22,7 +23,7 @@ export type State = {
 }
 
 export const trySignUp: ActionCreator<void> = createAction('try signup')
-export const successSignUp: ActionCreator<string> = createAction('success signup')
+export const successSignUp: ActionCreator<User> = createAction('success signup')
 export const failSignUp: ActionCreator<typeof Error> = createAction('fail signup')
 export const changeFormData: ActionCreator<State> = createAction('change form data')
 
@@ -42,8 +43,8 @@ export function* saga(): Saga<void> {
     yield take(trySignUp.type)
     const { draftUser } = yield select()
     try {
-      const jwt: string = yield call(signUp, draftUser)
-      yield put(successSignUp(jwt))
+      const user = yield call(signUp, {}, draftUser)
+      yield put(successSignUp(user))
     } catch (err) {
       yield put(failSignUp(err))
     }
