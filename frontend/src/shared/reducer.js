@@ -16,7 +16,10 @@ const state: User = {
   },
 }
 
-export type CombBinedState = DraftUser & User
+export type CombBinedState = {
+  draftUser: DraftUser,
+  user: User,
+}
 
 const user = createReducer(state.user) // reducer
   .case(successSignUp, (state, payload: User) => Object.assign({}, state, payload))

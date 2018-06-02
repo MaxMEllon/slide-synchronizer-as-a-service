@@ -1,5 +1,6 @@
 import Fetchr from 'fetchr'
 import { type State as DraftUser } from '../pages/SignUp'
+import type { User } from '../reducer'
 
 const fetchr = new Fetchr({
   xhrPath: '/ssaas/api',
@@ -23,7 +24,7 @@ export const createFetchrAsPromise = <P, B, R>(
         })
     })
 
-export const signUp = (params: {}, body: DraftUser, config = {}) =>
+export const signUp: Promise<User> = (params: {}, body: DraftUser, config = {}) =>
   createFetchrAsPromise('user', 'create', params, body, config)
-export const signIn = (params: {}, body: any, config = {}) =>
+export const signIn: Promise<User> = (params: {}, body: any, config = {}) =>
   createFetchrAsPromise('user', 'update', params, body, config)
