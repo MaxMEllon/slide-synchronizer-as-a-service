@@ -36,7 +36,6 @@ export const initalState: State = {
 
 export const reducer = createReducer(initalState) // reducer
   .case(changeFormData, (state, payload) => payload)
-  .else((state) => state)
 
 export function* saga(): Saga<void> {
   while (true) {

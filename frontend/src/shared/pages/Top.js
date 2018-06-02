@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Background = styled.div`
-  background-image: url("/assets/top.jpg");
+  background-image: url('/assets/top.jpg');
+  height: 80vh;
   left: 0;
   right: 0;
   bottom: 0;
@@ -20,7 +21,7 @@ const Background = styled.div`
 
 const Filter = styled.div`
   position: relative;
-  height: calc(100vh - 3.3rem);
+  height: 80vh;
   z-index: 100;
   background: rgb(255, 255, 255, 0.6);
   flex: 1;
