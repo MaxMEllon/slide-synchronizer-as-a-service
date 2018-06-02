@@ -66,6 +66,10 @@ const mapStateToProps = (state): State => ({
 
 export default compose(
   pure,
+  connect(mapStateToProps, {
+    trySignUp,
+    changeFormData,
+  }),
   lifecycle({
     componentWillUnmount() {
       this.props.changeFormData({
@@ -75,10 +79,6 @@ export default compose(
         passwordConfirmation: '',
       })
     },
-  }),
-  connect(mapStateToProps, {
-    trySignUp,
-    changeFormData,
   }),
 )(({ trySignUp, changeFormData, ...props }: Props) => (
   <Card
