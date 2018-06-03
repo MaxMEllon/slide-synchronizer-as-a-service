@@ -6,7 +6,8 @@ import { routerReducer } from 'react-router-redux'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import {
   reducer as draftUser,
-  successSignUp,
+  successSignIn,
+  failSignIn,
   initialState as initialDraftUser,
   type State as DraftUser,
 } from './pages/SignUp'
@@ -34,7 +35,8 @@ export const initialState = {
 }
 
 const user = createReducer(state.user) // reducer
-  .case(successSignUp, (state, payload: User) => Object.assign({}, state, payload))
+  .case(successSignIn, (state, payload: User) => Object.assign({}, state, payload))
+  .case(failSignIn, (state) => Object.assign({}, state, { jwt: null }))
 
 export default combineReducers({
   draftUser,

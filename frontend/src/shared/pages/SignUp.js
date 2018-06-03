@@ -4,7 +4,8 @@ import { type Saga } from 'redux-saga'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import { compose, lifecycle, pure, setDisplayName, type HOC } from 'recompose'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import { getOr } from 'lodash/fp'
+import { replace, push } from 'react-router-redux'
 import { take, put, call, select } from 'redux-saga/effects'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import * as React from 'react'
@@ -26,8 +27,8 @@ export type State = {
 }
 
 export const trySignUp: ActionCreator<State> = createAction('try signup')
-export const successSignUp: ActionCreator<User> = createAction('success signup')
-export const failSignUp: ActionCreator<typeof Error> = createAction('fail signup')
+export const successSignIn: ActionCreator<User> = createAction('success signin')
+export const failSignIn: ActionCreator<typeof Error> = createAction('fail signup')
 export const changeFormData: ActionCreator<State> = createAction('change form data')
 
 export const initialState: State = {
@@ -47,10 +48,11 @@ export function* saga(): Saga<void> {
     yield put(showLoading())
     try {
       const user: User = yield call(signUp, {}, draftUser)
-      yield put(successSignUp(user))
+      localStorage.setItem('jwt', user.jwt)
+      yield put(successSignIn(user))
       yield put(push('/dashboard'))
     } catch (err) {
-      yield put(failSignUp(err))
+      yield put(failSignIn(err))
     }
     yield put(hideLoading())
   }
@@ -59,11 +61,13 @@ export function* saga(): Saga<void> {
 type Actions = {
   trySignUp: typeof trySignUp,
   changeFormData: typeof changeFormData,
+  push: (path: string) => void,
 }
 
 type Props = State & Actions
 
 const mapStateToProps = (state: CombBinedState): State => ({
+  jwt: getOr(null, 'user.jwt', state),
   email: state.draftUser.email,
   name: state.draftUser.name,
   password: state.draftUser.password,
@@ -74,9 +78,13 @@ const SignUpEnhancer: HOC<Props, State> = compose(
   pure,
   connect(
     mapStateToProps,
-    { trySignUp, changeFormData },
+    { trySignUp, changeFormData, replace },
   ),
   lifecycle({
+    componentDidMount() {
+      if (this.props.jwt !== null) this.props.replace('/dashboard')
+    },
+
     componentWillUnmount() {
       this.props.changeFormData({
         name: '',
