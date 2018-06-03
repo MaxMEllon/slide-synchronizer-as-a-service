@@ -6,7 +6,7 @@
   "scripts": {
     "start": "DEBUG=express:*,ssaas:* NODE_ENV=development node ./bin/start-server.js",
     "lint": "eslint src/client src/server src/shared src/webpack",
-    "fmt": "eslint --fix src/client src/server src/shared src/webpack bin"
+    "fmt": "prettier-eslint \"src/client src/server src/shared src/webpack bin\""
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",
@@ -38,6 +38,7 @@
     "npm-run-all": "^4.1.3",
     "pm2": "^2.10.4",
     "prettier": "^1.12.1",
+    "prettier-eslint-cli": "^4.7.1",
     "redux-devtools-extension": "^2.13.2",
     "webpack": "^4.7.0",
     "webpack-cli": "^2.1.2",

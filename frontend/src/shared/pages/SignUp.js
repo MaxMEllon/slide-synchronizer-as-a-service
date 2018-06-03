@@ -1,17 +1,18 @@
 // @flow
 
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { type Saga } from 'redux-saga'
-import { take, put, call, select } from 'redux-saga/effects'
-import { compose, pure, lifecycle, setDisplayName } from 'recompose'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
-import { signUp } from '../fetchr'
-import type { User, CombBinedState } from '../reducer'
+import { compose, lifecycle, pure, setDisplayName, type HOC } from 'recompose'
+import { connect } from 'react-redux'
+import { take, put, call, select } from 'redux-saga/effects'
+import { type Saga } from 'redux-saga'
+
 import Card from '../organisms/Card'
+import CardFooter from '../molecules/CardFooter'
 import CardHeader from '../molecules/CardHeader'
 import SignUpCardContent from '../molecules/SignUpCardContent'
-import CardFooter from '../molecules/CardFooter'
+import type { User, CombBinedState } from '../reducer'
+import { signUp } from '../fetchr'
 
 const { createAction } = buildActionCreator({ prefix: 'user/signup ' })
 
@@ -64,12 +65,12 @@ const mapStateToProps = (state: CombBinedState): State => ({
   passwordConfirmation: state.draftUser.passwordConfirmation,
 })
 
-export default compose(
+const SignUpEnhancer: HOC<Props, State> = compose(
   pure,
-  connect(mapStateToProps, {
-    trySignUp,
-    changeFormData,
-  }),
+  connect(
+    mapStateToProps,
+    { trySignUp, changeFormData },
+  ),
   lifecycle({
     componentWillUnmount() {
       this.props.changeFormData({
@@ -81,7 +82,9 @@ export default compose(
     },
   }),
   setDisplayName('SignUp'),
-)(({ trySignUp, changeFormData, ...props }: Props) => (
+)
+
+export default SignUpEnhancer(({ trySignUp, changeFormData, ...props }: Props) => (
   <Card
     Header={<CardHeader title="ユーザー登録" />}
     Content={<SignUpCardContent changeFormData={changeFormData} {...props} />}
