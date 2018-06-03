@@ -7,31 +7,26 @@
 # dev
 > Start to development
 
-    saku -p api bff client
+    saku -p api client
 
 # api
 > Start rails api server
 
     cd api && bundle exec rails server
 
-# bff
-> Start express server for frontend
-
-    cd frontend && npm run start:server
-
 # client
-> Start webpack-serve, serve bundled a client js file.
+> Start development server, serve bundled a client js file.
 
-    cd frontend && npm run start:client
+    cd frontend && npm run start
 
 # lint
 
     saku -p lint:frontend lint:api
 
-# lint:frontend
+# lint:api
 
     cd api && bundle exec rubocop -p
 
-# lint:api
+# lint:frontend
 
    cd ../frontend && npm run lint
