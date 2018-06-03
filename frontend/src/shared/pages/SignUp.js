@@ -4,7 +4,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { type Saga } from 'redux-saga'
 import { take, put, call, select } from 'redux-saga/effects'
-import { compose, pure, lifecycle } from 'recompose'
+import { compose, pure, lifecycle, setDisplayName } from 'recompose'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import { signUp } from '../fetchr'
 import type { User, CombBinedState } from '../reducer'
@@ -22,7 +22,7 @@ export type State = {
   passwordConfirmation: string,
 }
 
-export const trySignUp: ActionCreator<void> = createAction('try signup')
+export const trySignUp: ActionCreator<State> = createAction('try signup')
 export const successSignUp: ActionCreator<User> = createAction('success signup')
 export const failSignUp: ActionCreator<typeof Error> = createAction('fail signup')
 export const changeFormData: ActionCreator<State> = createAction('change form data')
@@ -51,8 +51,8 @@ export function* saga(): Saga<void> {
 }
 
 type Actions = {
-  trySignUp: () => void,
-  changeFormData: (s: State) => void,
+  trySignUp: typeof trySignUp,
+  changeFormData: typeof changeFormData,
 }
 
 type Props = State & Actions
@@ -80,10 +80,11 @@ export default compose(
       })
     },
   }),
+  setDisplayName('SignUp'),
 )(({ trySignUp, changeFormData, ...props }: Props) => (
   <Card
     Header={<CardHeader title="ユーザー登録" />}
     Content={<SignUpCardContent changeFormData={changeFormData} {...props} />}
-    Footer={<CardFooter buttonName="登録" onSubmit={trySignUp} />}
+    Footer={<CardFooter buttonName="登録" onSubmit={() => trySignUp({ ...props })} />}
   />
 ))

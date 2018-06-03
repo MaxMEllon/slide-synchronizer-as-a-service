@@ -1,15 +1,16 @@
 // @flow
 
 import * as React from 'react'
+import { type ActionCreator } from 'hard-reducer'
 import CardContent from './CardContent'
 import FormField from '../atoms/FromField'
 import { type State } from '../pages/SignUp'
 
 type Props = State & {
-  changeFormData: (s: State) => void,
+  changeFormData: ActionCreator<State>,
 }
 
-const onChangeCreator = (props: State, changeFormData: (s: State) => void) => (
+const onChangeCreator = (props: State, changeFormData: ActionCreator<State>) => (
   e: any,
   type: string,
 ) => {
