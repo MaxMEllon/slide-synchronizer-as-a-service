@@ -31,7 +31,7 @@ class User < ApplicationRecord
   validates :authentication_token, uniqueness: true, allow_nil: true
 
   def jwt
-    JWT.encode(payload, ENV['JWT_SECRET'], 'HS256')
+    JWT.encode(payload, OpenSSL::PKey::RSA.new(ENV['JWT_PRIVATE_KEY']), 'RS512')
   end
 
   def ensure_authentication_token
