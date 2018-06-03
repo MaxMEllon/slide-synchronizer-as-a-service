@@ -1,28 +1,26 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet, injectGlobal } from 'styled-components'
+import { ConnectedRouter, push } from 'react-router-redux'
 import { Provider } from 'react-redux'
-import { StaticRouter as Router } from 'react-router'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
 import bulma from './macros/bulma.macro'
-import reducer from '../shared/reducer'
-
-const styleTags = new ServerStyleSheet().getStyleTags()
-const store = createStore(reducer)
-const state = store.getState()
-
-const context = {}
+import reducer, { initialState } from '../shared/reducer'
 
 const style = () => injectGlobal`${bulma}`
 
 export default function renderFullPage(path) {
+  const styleTags = new ServerStyleSheet().getStyleTags()
+  const { history, store } = createStore(reducer, initialState, true)
+  const state = store.getState()
+  store.dispatch(push(path))
   style()
   const renderedContent = renderToString(
     <Provider store={store}>
-      <Router context={context} location={path}>
+      <ConnectedRouter history={history}>
         <App />
-      </Router>
+      </ConnectedRouter>
     </Provider>,
   )
   return `

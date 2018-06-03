@@ -1,18 +1,23 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
 import reducer from '../shared/reducer'
 
-const store = createStore(reducer)
+// the `window` object before the bundle to make sure it doesn't get blocked
+const initialState = window.INITIAL_STATE || {}
+// once this gets loaded in, garbage collect the old `window` state
+delete window.INITIAL_STATE
+
+const { history, store } = createStore(reducer, initialState)
 
 hydrate(
   <Provider store={store}>
-    <Router>
+    <ConnectedRouter history={history}>
       <App />
-    </Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),
 )

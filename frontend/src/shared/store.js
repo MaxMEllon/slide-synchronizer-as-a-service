@@ -1,22 +1,39 @@
-import { createLogger } from 'redux-logger'
-import { createStore, applyMiddleware, compose } from 'redux'
+import createBrowserHistory from 'history/createBrowserHistory'
+import createMemoryHistory from 'history/createMemoryHistory'
 import createSagaMiddleware from 'redux-saga'
+import { applyMiddleware, compose, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { routerMiddleware } from 'react-router-redux'
+
 import rootSaga from './sagas'
-
-const logger = createLogger()
-const sagaMiddleware = createSagaMiddleware()
-
-const middlewares = []
-if (process.env.NODE_ENV === 'development') {
-  middlewares.push(logger)
-}
-middlewares.push(sagaMiddleware)
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? composeWithDevTools({}) : compose
 
-export default (reducer: {}) => {
-  const store = createStore(reducer, composeEnhancers(applyMiddleware(...middlewares)))
+export default (reducer, initialState, fromServer) => {
+  const history = fromServer ? createMemoryHistory() : createBrowserHistory()
+
+  // generate middlewares
+  const sagaMiddleware = createSagaMiddleware()
+  const initalizedRouterMiddleware = routerMiddleware(history)
+
+  // regist middlewares
+  const middlewares = []
+  middlewares.push(sagaMiddleware)
+  middlewares.push(initalizedRouterMiddleware)
+
+  const store = createStore(
+    reducer,
+    initialState,
+    composeEnhancers(applyMiddleware(...middlewares)),
+  )
+
   sagaMiddleware.run(rootSaga)
-  return store
+
+  if (process.env.NODE_ENV === 'development') {
+    if (module.hot) {
+      module.hot.accept('./reducer', () => store.replaceReducer(require('./reducer')))
+    }
+  }
+
+  return { history, store }
 }

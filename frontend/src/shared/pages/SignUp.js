@@ -28,14 +28,14 @@ export const successSignUp: ActionCreator<User> = createAction('success signup')
 export const failSignUp: ActionCreator<typeof Error> = createAction('fail signup')
 export const changeFormData: ActionCreator<State> = createAction('change form data')
 
-export const initalState: State = {
+export const initialState: State = {
   email: '',
   name: '',
   password: '',
   passwordConfirmation: '',
 }
 
-export const reducer = createReducer(initalState) // reducer
+export const reducer = createReducer(initialState) // reducer
   .case(changeFormData, (state, payload) => payload)
 
 export function* saga(): Saga<void> {
