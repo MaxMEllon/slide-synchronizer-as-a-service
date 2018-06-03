@@ -1,22 +1,31 @@
 // @flow
 
 import * as React from 'react'
+import LoadingBar from 'react-redux-loading-bar'
+import reset from 'styled-reset'
 import { Switch, Route } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
-import reset from 'styled-reset'
+
 import Nav from '../organisms/Nabvar'
+import bulma from '../../server/macros/bulma.macro'
 import routeBank from '../routes'
 
-const style = () => injectGlobal`
+const resetStyle = () => injectGlobal`
   ${reset}
+`
+
+const bulmaStyle = () => injectGlobal`
+  ${bulma}
 `
 
 const routes = routeBank.routes.map((props, i) => <Route key={i} {...props} />)
 
 const App = (): React.Node => {
-  style()
+  resetStyle()
+  bulmaStyle()
   return (
     <React.Fragment>
+      <LoadingBar style={{ zIndex: 400000 }} />
       <Nav />
       <Switch>{routes}</Switch>
     </React.Fragment>

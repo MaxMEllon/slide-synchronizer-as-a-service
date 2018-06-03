@@ -3,6 +3,7 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'hard-reducer'
 import { routerReducer } from 'react-router-redux'
+import { loadingBarReducer } from 'react-redux-loading-bar'
 import {
   reducer as draftUser,
   successSignUp,
@@ -39,4 +40,5 @@ export default combineReducers({
   draftUser,
   user,
   router: routerReducer,
+  loadingBar: loadingBarReducer,
 })

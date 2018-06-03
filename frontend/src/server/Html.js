@@ -5,17 +5,13 @@ import { ConnectedRouter, push } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
-import bulma from './macros/bulma.macro'
 import reducer, { initialState } from '../shared/reducer'
-
-const style = () => injectGlobal`${bulma}`
 
 export default function renderFullPage(path) {
   const styleTags = new ServerStyleSheet().getStyleTags()
   const { history, store } = createStore(reducer, initialState, true)
   const state = store.getState()
   store.dispatch(push(path))
-  style()
   const renderedContent = renderToString(
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -41,7 +37,6 @@ export default function renderFullPage(path) {
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://example.com" />
     ${styleTags}
-    <style>${bulma}</style>
   </head>
   <body>
     <div id="root">${renderedContent}</div>

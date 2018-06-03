@@ -1,18 +1,20 @@
 // @flow
 
-import * as React from 'react'
+import { type Saga } from 'redux-saga'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import { compose, lifecycle, pure, setDisplayName, type HOC } from 'recompose'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { take, put, call, select } from 'redux-saga/effects'
-import { type Saga } from 'redux-saga'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+import * as React from 'react'
 
+import type { User, CombBinedState } from '../reducer'
+import { signUp } from '../fetchr'
 import Card from '../organisms/Card'
 import CardFooter from '../molecules/CardFooter'
 import CardHeader from '../molecules/CardHeader'
 import SignUpCardContent from '../molecules/SignUpCardContent'
-import type { User, CombBinedState } from '../reducer'
-import { signUp } from '../fetchr'
 
 const { createAction } = buildActionCreator({ prefix: 'user/signup ' })
 
@@ -42,12 +44,15 @@ export function* saga(): Saga<void> {
   while (true) {
     yield take(trySignUp.type)
     const { draftUser } = yield select()
+    yield put(showLoading())
     try {
       const user: User = yield call(signUp, {}, draftUser)
       yield put(successSignUp(user))
+      yield put(push('/dashboard'))
     } catch (err) {
       yield put(failSignUp(err))
     }
+    yield put(hideLoading())
   }
 }
 

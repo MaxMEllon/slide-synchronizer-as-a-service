@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const nodeExternals = require('webpack-node-externals')
+const HappyPack = require('happypack')
 
 module.exports = {
   name: 'server',
@@ -20,11 +21,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
+        use: 'happypack/loader',
       },
     ],
   },
@@ -33,6 +30,9 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new HappyPack({
+      loaders: ['babel-loader?cacheDirectory=true'],
+    }),
   ],
   resolve: {
     extensions: ['.js'],
