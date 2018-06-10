@@ -48,7 +48,7 @@ export function* saga(): Saga<void> {
     yield put(showLoading())
     try {
       const user: User = yield call(signUp, {}, draftUser)
-      localStorage.setItem('jwt', user.jwt)
+      localStorage.setItem('jwt', user?.jwt)
       yield put(successSignIn(user))
       yield put(push('/dashboard'))
     } catch (err) {

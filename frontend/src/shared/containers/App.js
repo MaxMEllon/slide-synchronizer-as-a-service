@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 
 import Nav from '../organisms/Nabvar'
+import Notification from '../organisms/Notification'
 import bulma from '../../server/macros/bulma.macro'
 import routeBank from '../routes'
 
@@ -28,6 +29,7 @@ const App = (): React.Node => {
       <LoadingBar style={{ zIndex: 400000 }} />
       <Nav />
       <Switch>{routes}</Switch>
+      <Notification />
     </React.Fragment>
   )
 }

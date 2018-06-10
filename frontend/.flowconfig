@@ -12,3 +12,4 @@ module.file_ext=.jsx
 module.file_ext=.css
 module.file_ext=.scss
 module.file_ext=.json
+esproposal.optional_chaining=enable
