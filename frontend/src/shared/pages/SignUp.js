@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { getOr } from 'lodash/fp'
 import { replace, push } from 'react-router-redux'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
-import { take, put, call, select } from 'redux-saga/effects'
+import { take, put, call } from 'redux-saga/effects'
 import { type Saga } from 'redux-saga'
 
 import Card from '../organisms/Card'
@@ -45,8 +45,8 @@ export const reducer = createReducer(initialState) // reducer
 
 export function* saga(): Saga<void> {
   while (true) {
-    yield take(trySignUp.type)
-    const { draftUser } = yield select()
+    const action = yield take(trySignUp.type)
+    const draftUser = action.payload
     yield put(showLoading())
     try {
       const user: User = yield call(signUp, {}, draftUser)
