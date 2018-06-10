@@ -15,6 +15,7 @@ import CardFooter from '../molecules/CardFooter'
 import CardHeader from '../molecules/CardHeader'
 import SignUpCardContent from '../molecules/SignUpCardContent'
 import { notify } from '../organisms/Notification'
+import { shouldSignOut } from '../hoc'
 import { signUp } from '../fetchr'
 import { type User, type CombBinedState } from '../ducks/common'
 
@@ -82,15 +83,8 @@ const SignUpEnhancer: HOC<Props, State> = compose(
     mapStateToProps,
     { trySignUp, changeFormData, replace, notify },
   ),
+  shouldSignOut,
   lifecycle({
-    componentDidMount() {
-      if (this.props.jwt !== null) {
-        this.props.replace('/dashboard')
-        this.props.notify({
-          message: 'すでにログインしています',
-        })
-      }
-    },
     componentWillUnmount() {
       this.props.changeFormData({
         name: '',
