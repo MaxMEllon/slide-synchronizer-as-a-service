@@ -2,9 +2,12 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
+import keyMirror from 'keymirror'
+import { type Saga, delay } from 'redux-saga'
 import { compose, pure, setDisplayName, type HOC } from 'recompose'
 import { connect } from 'react-redux'
 import { createReducer, buildActionCreator, type ActionCreator } from 'hard-reducer'
+import { put, takeEvery } from 'redux-saga/effects'
 
 const Snackbar = styled.div`
   position: fixed !important;
@@ -24,7 +27,15 @@ export const state: Notification = {
 
 const { createAction } = buildActionCreator({ prefix: 'common ' })
 
-export const notify: ActionCreator<Notification> = createAction('notification')
+const snackBarTypes = keyMirror({
+  info: null,
+  danger: null,
+  warning: null,
+})
+
+export const notify: ActionCreator<Notification & $Keys<typeof snackBarTypes>> = createAction(
+  'notification',
+)
 export const openSnackbar: ActionCreator<Notification> = createAction('open snackbar')
 export const closeSnackbar: ActionCreator<void> = createAction('close snackbar')
 
@@ -34,6 +45,7 @@ export const reducer = createReducer(state) // reducer
 
 type Props = {
   message: string | null,
+  type: string,
 }
 
 type Actions = {
@@ -42,9 +54,10 @@ type Actions = {
 
 const mapStateToProps = (state) => ({
   message: state.notification.message,
+  type: state.notification.type,
 })
 
-const NotificationEnhancer: HOC<Props & Actions, Props> = compose(
+const NotificationEnhancer: HOC<Props & Actions, *> = compose(
   pure,
   connect(
     mapStateToProps,
@@ -53,13 +66,27 @@ const NotificationEnhancer: HOC<Props & Actions, Props> = compose(
   setDisplayName('Notification'),
 )
 
+export function* saga(): Saga<void> {
+  yield takeEvery(notify.type, function* notifyTask(action: {
+    payload: Notification,
+    type: string,
+  }): any {
+    const { payload } = action
+    yield put(openSnackbar(payload))
+    yield delay(2000)
+    yield put(closeSnackbar())
+  })
+}
+
 export default NotificationEnhancer(function Notification({
   message,
   closeSnackbar,
+  type = 'info',
 }: Props & Actions) {
   if (message === null) return null
+  const className = `notification is-${type}`
   return (
-    <Snackbar className="notification is-info">
+    <Snackbar className={className}>
       <button className="delete" onClick={() => closeSnackbar()} />
       {message}
     </Snackbar>

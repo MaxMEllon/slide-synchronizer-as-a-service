@@ -10,13 +10,13 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import { take, put, call, select } from 'redux-saga/effects'
 import { type Saga } from 'redux-saga'
 
-import { type User, type CombBinedState } from '../ducks/common'
-import { notify } from '../organisms/Notification'
-import { signUp } from '../fetchr'
 import Card from '../organisms/Card'
 import CardFooter from '../molecules/CardFooter'
 import CardHeader from '../molecules/CardHeader'
 import SignUpCardContent from '../molecules/SignUpCardContent'
+import { notify } from '../organisms/Notification'
+import { signUp } from '../fetchr'
+import { type User, type CombBinedState } from '../ducks/common'
 
 const { createAction } = buildActionCreator({ prefix: 'user/signup ' })
 
