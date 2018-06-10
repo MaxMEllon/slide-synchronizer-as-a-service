@@ -1,6 +1,6 @@
 import Fetchr from 'fetchr'
 import { type State as DraftUser } from '../pages/SignUp'
-import type { User } from '../reducer'
+import type { User } from '../ducks/common'
 
 const fetchr = new Fetchr({
   xhrPath: '/ssaas/api',

@@ -1,11 +1,11 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheet, injectGlobal } from 'styled-components'
+import { ServerStyleSheet } from 'styled-components'
 import { ConnectedRouter, push } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
-import reducer, { initialState } from '../shared/reducer'
+import { reducer, initialState } from '../shared/ducks/common'
 
 export default function renderFullPage(path) {
   const styleTags = new ServerStyleSheet().getStyleTags()

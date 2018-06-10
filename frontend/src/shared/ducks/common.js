@@ -10,7 +10,7 @@ import {
   failSignIn,
   initialState as initialDraftUser,
   type State as DraftUser,
-} from './pages/SignUp'
+} from '../pages/SignUp'
 
 export type User = {
   user: {
@@ -38,7 +38,7 @@ const user = createReducer(state.user) // reducer
   .case(successSignIn, (state, payload: User) => Object.assign({}, state, payload))
   .case(failSignIn, (state) => Object.assign({}, state, { jwt: null }))
 
-export default combineReducers({
+export const reducer = combineReducers({
   draftUser,
   user,
   router: routerReducer,

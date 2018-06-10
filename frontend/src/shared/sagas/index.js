@@ -1,4 +1,4 @@
-// @saga
+// @flow
 
 import { fork, put } from 'redux-saga/effects'
 import type { Saga } from 'redux-saga'
@@ -11,7 +11,7 @@ function* restoreJWTTask(): Saga<void> {
 }
 
 export default function* rootSaga(): Saga<void> {
-  if (window && window.localStorage) {
+  if (!global) {
     yield fork(restoreJWTTask)
   }
   yield fork(signUpTask)

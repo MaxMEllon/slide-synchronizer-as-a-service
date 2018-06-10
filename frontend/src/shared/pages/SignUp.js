@@ -10,7 +10,7 @@ import { take, put, call, select } from 'redux-saga/effects'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import * as React from 'react'
 
-import type { User, CombBinedState } from '../reducer'
+import type { User, CombBinedState } from '../ducks/common'
 import { signUp } from '../fetchr'
 import Card from '../organisms/Card'
 import CardFooter from '../molecules/CardFooter'
@@ -82,7 +82,9 @@ const SignUpEnhancer: HOC<Props, State> = compose(
   ),
   lifecycle({
     componentDidMount() {
-      if (this.props.jwt !== null) this.props.replace('/dashboard')
+      if (this.props.jwt !== null) {
+        this.props.replace('/dashboard')
+      }
     },
 
     componentWillUnmount() {

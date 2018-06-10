@@ -31,7 +31,7 @@ export default (reducer, initialState, fromServer) => {
 
   if (process.env.NODE_ENV === 'development') {
     if (module.hot) {
-      module.hot.accept('./reducer', () => store.replaceReducer(require('./reducer')))
+      module.hot.accept('./ducks/common', () => store.replaceReducer(require('./ducks/common')))
     }
   }
 

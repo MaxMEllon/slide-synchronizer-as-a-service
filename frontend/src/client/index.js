@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import createStore from '../shared/store'
 import App from '../shared/containers/App'
-import reducer from '../shared/reducer'
+import { reducer } from '../shared/ducks/common'
 
 // the `window` object before the bundle to make sure it doesn't get blocked
 const initialState = window.__PRELOADED_STATE__ || {}
