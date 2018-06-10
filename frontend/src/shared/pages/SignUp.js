@@ -1,16 +1,17 @@
 // @flow
 
-import { type Saga } from 'redux-saga'
+import * as React from 'react'
 import { buildActionCreator, createReducer, type ActionCreator } from 'hard-reducer'
 import { compose, lifecycle, pure, setDisplayName, type HOC } from 'recompose'
 import { connect } from 'react-redux'
 import { getOr } from 'lodash/fp'
 import { replace, push } from 'react-router-redux'
-import { take, put, call, select } from 'redux-saga/effects'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
-import * as React from 'react'
+import { take, put, call, select } from 'redux-saga/effects'
+import { type Saga } from 'redux-saga'
 
-import type { User, CombBinedState } from '../ducks/common'
+import { type User, type CombBinedState } from '../ducks/common'
+import { notify } from '../organisms/Notification'
 import { signUp } from '../fetchr'
 import Card from '../organisms/Card'
 import CardFooter from '../molecules/CardFooter'
@@ -62,6 +63,7 @@ type Actions = {
   trySignUp: typeof trySignUp,
   changeFormData: typeof changeFormData,
   push: (path: string) => void,
+  notify: typeof notify,
 }
 
 type Props = State & Actions
@@ -78,15 +80,17 @@ const SignUpEnhancer: HOC<Props, State> = compose(
   pure,
   connect(
     mapStateToProps,
-    { trySignUp, changeFormData, replace },
+    { trySignUp, changeFormData, replace, notify },
   ),
   lifecycle({
     componentDidMount() {
       if (this.props.jwt !== null) {
         this.props.replace('/dashboard')
+        this.props.notify({
+          message: 'すでにログインしています',
+        })
       }
     },
-
     componentWillUnmount() {
       this.props.changeFormData({
         name: '',

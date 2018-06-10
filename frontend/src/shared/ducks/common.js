@@ -12,17 +12,11 @@ import {
   type State as DraftUser,
 } from '../pages/SignUp'
 
-export type Notification = {
-  notification: {
-    message: string | null,
-  },
-}
-
-const { createAction } = buildActionCreator({ prefix: 'common ' })
-
-export const notify: ActionCreator<Notification> = createAction('notification')
-export const openSnackbar: ActionCreator<Notification> = createAction('open snackbar')
-export const closeSnackbar: ActionCreator<void> = createAction('close snackbar')
+import {
+  reducer as notification,
+  state as initialNotification,
+  type Notification,
+} from '../organisms/Notification'
 
 export type User = {
   user: {
@@ -48,11 +42,8 @@ export type CombBinedState = {
 export const initialState = {
   ...state,
   draftUser: initialDraftUser,
+  notification: initialNotification,
 }
-
-const notification = createReducer(state.notification) // reducer
-  .case(openSnackbar, (state, payload: Notification) => Object.assign({}, state, payload))
-  .case(closeSnackbar, (state) => Object.assign({}, state, { message: null }))
 
 const user = createReducer(state.user) // reducer
   .case(successSignIn, (state, payload: User) => Object.assign({}, state, payload))

@@ -6,6 +6,10 @@ import Html from './Html'
 import routesBank from '../shared/routes'
 import apiGateway from './middlewares/apiGateway'
 
+if (process.env.NODE_ENV === 'development') {
+  require('source-map-support').install()
+}
+
 const info = Debug('app:info')
 
 export default function renderer() {

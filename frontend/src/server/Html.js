@@ -3,8 +3,9 @@ import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { ConnectedRouter, push } from 'react-router-redux'
 import { Provider } from 'react-redux'
-import createStore from '../shared/store'
+
 import App from '../shared/containers/App'
+import createStore from '../shared/store'
 import { reducer, initialState } from '../shared/ducks/common'
 
 export default function renderFullPage(path) {
