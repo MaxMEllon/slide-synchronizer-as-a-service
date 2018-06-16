@@ -1,6 +1,12 @@
+// @flow
+
 import Fetchr from 'fetchr'
-import { type State as DraftUser } from '../pages/SignUp'
+import pino from 'pino'
+
 import type { User } from '../ducks/common'
+import { type State as DraftUser } from '../pages/SignUp'
+
+const log = pino()
 
 const fetchr = new Fetchr({
   xhrPath: '/ssaas/api',
@@ -18,9 +24,13 @@ export const createFetchrAsPromise = <P, B, R>(
         .params(params)
         .body(body)
         .clientConfig(config)
-        .end((err, data) => {
-          if (err) reject(err)
-          resolve(data)
+        .end((err, res) => {
+          if (err) {
+            log.error('fetchr error %o', err)
+            return reject(err)
+          }
+          log.info('fetchr success %o', res)
+          resolve(res)
         })
     })
 

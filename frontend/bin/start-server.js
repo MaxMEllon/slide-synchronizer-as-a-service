@@ -34,18 +34,13 @@ function devServer(app) {
 
   const multiCompiler = webpack([clientConfig, serverConfig])
   const clientCompiler = multiCompiler.compilers[0]
-  const { output: outputPublicPath } = clientConfig
-  const { publicPath } = outputPublicPath
 
-  app.use(webpackDevMiddleware(multiCompiler, { publicPath }))
+  app.use(webpackDevMiddleware(multiCompiler, { serverSideRender: true }))
   app.use(webpackHotMiddleware(clientCompiler))
   app.use(webpackHotServerMiddleware(multiCompiler))
 
-  return new Promise((resolve, reject) => (
-    multiCompiler.plugin('done', () => resolve())
-  ))
+  return new Promise((resolve, reject) => multiCompiler.plugin('done', () => resolve()))
 }
-
 
 createApp()
   .then((app) => {
@@ -57,4 +52,3 @@ createApp()
     debug(err)
     process.exit(1)
   })
-

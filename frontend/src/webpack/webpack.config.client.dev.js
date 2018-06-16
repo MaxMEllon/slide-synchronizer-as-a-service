@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const HappyPack = require('happypack')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = {
   name: 'client',
@@ -36,6 +37,7 @@ module.exports = {
     new webpack.HashedModuleIdsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new HardSourceWebpackPlugin(),
     new HappyPack({
       loaders: ['babel-loader?cacheDirectory=true'],
     }),

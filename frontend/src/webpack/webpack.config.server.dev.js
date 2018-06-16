@@ -3,11 +3,13 @@ const webpack = require('webpack')
 const Dotenv = require('dotenv-webpack')
 const nodeExternals = require('webpack-node-externals')
 const HappyPack = require('happypack')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = {
   name: 'server',
   cache: true,
   mode: 'development',
+  target: 'node',
   entry: [`${process.cwd()}/src/server/index.js`],
   externals: [nodeExternals()],
   devtool: 'inline-source-map',
@@ -30,6 +32,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new HardSourceWebpackPlugin(),
     new HappyPack({
       loaders: ['babel-loader?cacheDirectory=true'],
     }),

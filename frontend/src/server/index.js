@@ -2,13 +2,10 @@ import express from 'express'
 import Debug from 'debug'
 import bodyParser from 'body-parser'
 import { matchPath } from 'react-router'
+
 import Html from './Html'
 import routesBank from '../shared/routes'
 import apiGateway from './middlewares/apiGateway'
-
-if (process.env.NODE_ENV === 'development') {
-  require('source-map-support').install()
-}
 
 const info = Debug('app:info')
 
@@ -29,8 +26,8 @@ export default function renderer() {
         }),
       )
       res.send(Html(path))
-    } catch (_err) {
-      info(_err)
+    } catch (err) {
+      info(err)
       res.status(404).send('Not found')
     }
   })
